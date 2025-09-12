@@ -6,3 +6,6 @@ You will notice some things need to be updated in this code. It was originally m
 
 Contributors:
 Igor Koretskyi - 72206
+
+Link to report:
+https://docs.google.com/document/d/1Fnoy0i-asztPo1nZJjH2VcDXS3OHl0-F_TH-MtCCSwI/edit?usp=sharing
