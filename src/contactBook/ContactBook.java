@@ -18,7 +18,7 @@ public class ContactBook {
         return searchIndex(name) >= 0;
     }
 
-    public boolean hasNumber(String phone) {
+    public boolean hasNumber(int phone) {
         return searchPhone(phone) >= 0;
     }
 
@@ -47,7 +47,7 @@ public class ContactBook {
         return contacts[searchIndex(name)].getPhone();
     }
 
-    public String getName(String phone) {
+    public String getName(int phone) {
         return contacts[searchPhone(phone)].getName();
     }
 
@@ -79,12 +79,12 @@ public class ContactBook {
         return result;
     }
 
-    private int searchPhone(String phone) {
+    private int searchPhone(int phone) {
         int i = 0;
         int result = -1;
         boolean found = false;
-        while (i<counter && !found) {
-            if (Integer.toString(contacts[i].getPhone()).equals(phone)) {
+        while (i < counter && !found) {
+            if (contacts[i].getPhone() == phone) {
                 found = true;
             } else {
                 i++;
@@ -99,6 +99,16 @@ public class ContactBook {
         for (int i=0;i<counter; i++)
             tmp[i] = contacts[i];
         contacts = tmp;
+    }
+
+    public boolean checkDuplicates() {
+        for (int i = 0; i < counter; i++) {
+            for (int j = i + 1; j < counter; j++) {
+                if (contacts[i].getPhone() == contacts[j].getPhone())
+                    return true;
+            }
+        }
+        return false;
     }
 
     public void initializeIterator() {

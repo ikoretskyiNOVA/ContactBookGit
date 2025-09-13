@@ -14,6 +14,7 @@ public class Main {
     public static final String SET_PHONE      = "SP";
     public static final String SET_EMAIL      = "SE";
     public static final String LIST_CONTACTS  = "LC";
+    public static final String CHECK_CONTACTS = "EP";
     public static final String QUIT           = "Q";
 
     //Constantes que definem as mensagens para o utilizador
@@ -24,6 +25,8 @@ public class Main {
     public static final String CONTACT_REMOVED = "contactBook.Contact removed.";
     public static final String CONTACT_UPDATED = "contactBook.Contact updated.";
     public static final String BOOK_EMPTY = "contactBook.Contact book empty.";
+    public static final String DIFFERENT_NUMBERS = "All contacts have different phone numbers.";
+    public static final String SHARED_NUMBERS = "There are contacts that share phone numbers.";
     public static final String QUIT_MSG = "Goodbye!";
     public static final String COMMAND_ERROR = "Unknown command.";
 
@@ -58,6 +61,9 @@ public class Main {
                 case LIST_CONTACTS:
                     listAllContacts(cBook);
                     break;
+                case CHECK_CONTACTS:
+                    checkContacts(cBook);
+                    break;
                 default:
                     System.out.println(COMMAND_ERROR);
             }
@@ -71,7 +77,6 @@ public class Main {
 
     private static String getCommand(Scanner in) {
         String input;
-
         input = in.nextLine().toUpperCase();
         return input;
     }
@@ -79,7 +84,6 @@ public class Main {
     private static void addContact(Scanner in, ContactBook cBook) {
         String name, email;
         int phone;
-
         name = in.nextLine();
         phone = in.nextInt(); in.nextLine();
         email = in.nextLine();
@@ -110,8 +114,9 @@ public class Main {
     }
 
     private static void getName(Scanner in, ContactBook cBook) {
-        String phone;
-        phone = in.nextLine();
+        String phoneStr;
+        phoneStr = in.nextLine();
+        int phone = Integer.parseInt(phoneStr);
         if (cBook.hasNumber(phone)) {
             System.out.println(cBook.getName(phone));
         }
@@ -149,6 +154,13 @@ public class Main {
             System.out.println(CONTACT_UPDATED);
         }
         else System.out.println(NAME_NOT_EXIST);
+    }
+
+    private static void checkContacts(ContactBook cBook) {
+        if (cBook.checkDuplicates()) {
+            System.out.println(SHARED_NUMBERS);
+        } else
+            System.out.println(DIFFERENT_NUMBERS);
     }
 
     private static void listAllContacts(ContactBook cBook) {
